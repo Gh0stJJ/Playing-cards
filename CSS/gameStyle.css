@@ -2,6 +2,8 @@
 body{
     background-color: #f5f5f5;
     font-family: 'Poppins', sans-serif;
+    height: auto;
+    width: auto;
 }
 footer{
     margin: 30px auto 0px auto;
@@ -11,7 +13,11 @@ footer{
 main{
     display: flex;
     margin: 30px auto 0px auto;
-    width: 800px;
+    width: 1000px;
+    height: 800px;
+}
+img{
+    padding: 7px 7px 7px 7px;
 }
 form{
     font-size: 18px;
@@ -26,7 +32,7 @@ label{
 input{
     display: inline;
     font-family: 'Poppins', sans-serif;
-    width: 200px;
+    width: 185px;
     border: 1px solid #ced4da;
     padding: 10px;
     border-radius: 0px 5px 5px 0px;
@@ -56,12 +62,7 @@ p{
 footer{
     font-weight: 100;
 }
-img{
-    float:left;
-    border: 1px solid #ced4da;
-    padding: 10px;
-    border-radius: 5px 0px 0px 5px;
-}
+
 /*Selectores Juego*/
 .inputJuego{
     border-radius: 5px;
@@ -75,46 +76,19 @@ img{
     min-height: 75px;
     border-radius: 5px;
 }
-.item{
-    border-radius: 45px;
-    border: solid 10px #fff;
-    width: 35px;
-    height: 35px;
-}
-/*Colores para los items*/
-.rojo{
-    background-color: #fd0c49;
-    transition: background-color 0.4s;
-}
 
-.azul{
-    background-color: #00b0ff;
-    transition: background-color 0.4s;
-}
-
-.amarillo{
-    background-color: #ffeb3b;
-    transition: background-color 0.4s;
-}
-
-.verde{
-    background-color: #7ac943;
-    transition: background-color 0.4s;
-}
-
-.morado{
-    background-color: #9c27b0;
-    transition: background-color 0.4s;
-}
-
-.naranja{
-    background-color: #ff9800;
-    transition: background-color 0.4s;
-}
 
 #contenedorJuego{
-    width: 500px;
+    width: 650px;
     margin-right: 10px;
+    height: auto;
+    
+}
+#avatarImg{
+    float:left;
+    border: 1px solid #ced4da;
+    padding: 9px;
+    border-radius: 5px 0px 0px 5px;
 }
 #juego{
     position: absolute;
@@ -124,11 +98,15 @@ img{
     grid-template-rows: repeat(3, 1fr);
     justify-items: center;
     align-items: center;
-    width: 500px;
+    width: 600px;
     min-height: 400px;
     background-color: #fff;
     border: 1px solid #ced4da;
     border-radius: 5px 5px 0px 0px;
+    padding: 20px, 20px, 20px, 20px;
+    
+    
+
 }
 .juegoAcabadoColor{
     background-color: #263238;

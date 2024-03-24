@@ -6,7 +6,6 @@ var nick;
 var email;
 var size;
 var avatarImg;
-var geolocationtxt;
 
 /**
  * 
@@ -15,11 +14,9 @@ var geolocationtxt;
  * @param {HTMLElement} size tamaño del tablero
  * @param {HTMLElement} avatarData imagen de avatar
  */
-function setuserData(nick, email, size, avatarData) {
+function setuserData(nick, size, avatarData) {
     sessionStorage.setItem('nick', nick.value);
-    sessionStorage.setItem('email', email.value);
     sessionStorage.setItem('size', size.value);
-    sessionStorage.setItem('geolocation', geolocationtxt);
     sessionStorage.setItem('avatarImg', avatarData.src);
 
 }
@@ -27,7 +24,6 @@ function setuserData(nick, email, size, avatarData) {
 function getuserData() {
     nick = sessionStorage.getItem('nick');
     size = parseInt(sessionStorage.getItem('size'));
-    email = sessionStorage.getItem('email');
     avatarImg = sessionStorage.getItem('avatarImg');
 
     return nick;
@@ -43,24 +39,6 @@ function checkuserData() {
     }
 }
 
-//API de geolocalización
-function geolocalationData() {
-    if(!navigator.geolocation){
-        //Mensaje de error
-       geolocationtxt = "La geolocalización no está disponible en tu navegador";
-        return false;
-    }else{
-        navigator.geolocation.getCurrentPosition(
-            //Si se ha obtenido la posición
-            (position) => {
-                geolocationtxt = "Latitud: " + position.coords.latitude + " Longitud: " + position.coords.longitude;
-            },
-            //Si NO se ha obtenido la posición
-            () => { geolocationtxt = "No se ha podido obtener la geolocalización";}
-
-        )
-    }
-}
 
 //localStorage
 function userHistory(){

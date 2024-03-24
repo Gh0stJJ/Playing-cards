@@ -41,8 +41,7 @@ function paintGamePanel(){
     let items = '';
 
     for (let i = 0; i < size*size; i++) {
-        let randColor = Math.floor(Math.random() * 6);
-        items += '<div class="containerItem" draggable="false"><div id='+i+' class="item '+colors[randColor]+'" draggable="false"></div></div>';
+        items += '<div class="containerItem" draggable="false"><img id='+i+' src="/Images/backCard.png" height="145"  draggable="false"></></div>';
         document.getElementById('juego').innerHTML = items;
     }
 }
@@ -201,7 +200,7 @@ function gameEvents(){
     document.addEventListener('mouseup', finalizarMarcado);
 
     //Contador de tiempo (Cuenta atras)
-    idInterval = setInterval(function(){
+    /*idInterval = setInterval(function(){
         let tiempoInput = document.getElementById('tmpo');
         tiempoInput.value = parseInt(tiempoInput.value) - 1;
         if (parseInt(tiempoInput.value) == 0){
@@ -223,7 +222,7 @@ function gameEvents(){
             });
 
         }
-    }, 1000);
+    }, 1000); */
 
 }
 

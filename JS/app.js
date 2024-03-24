@@ -8,7 +8,6 @@
 //Inicializacion de var, objetos, DOM
 var nickInput;
 var sizeInput;
-var emailInput;
 var formEntrada;
 var error;
 var avatarItems;
@@ -40,7 +39,7 @@ function comprobarForm(e){
     }
 
     //Guardamos el nick en el sessionStorage
-    setuserData(nickInput, emailInput, sizeInput, avartarContainer);
+    setuserData(nickInput, sizeInput, avartarContainer);
 
     return true;
 }
@@ -63,7 +62,6 @@ function domReady(){
     //Captura de todos los elements necesarios
     nickInput = document.getElementById('nick');
     sizeInput = document.getElementById('size');
-    emailInput = document.getElementById('email');
     formEntrada = document.getElementById('formEntrada');
     error = document.getElementById('error');
     //Comprobamos si el hay algun error en el sessionStorage una vez cargado el DOM
@@ -96,7 +94,4 @@ function domReady(){
 document.addEventListener('DOMContentLoaded',domReady)
 
 
-
-//Geolocalizacion
-geolocalationData();
 
