@@ -112,6 +112,25 @@ footer{
     background-color: #263238;
     transition: background-color 0.4s;
 }
+
+.hiddenitem{
+    
+    position: absolute;
+    padding: 7px 7px 7px 7px;
+    transition: opacity 0.5s ease-in-out; /* Duración de 0.5 segundos */
+    opacity: 0; /* Inicia transparente */
+    position: absolute; /* Necesario para aplicar z-index */
+    z-index: 1; /* z-index inicial */
+    
+}
+
+.item{
+    z-index: 2;
+}
+
+
+
+
 #juegoAcabado{
     z-index: 1;
     position: absolute;

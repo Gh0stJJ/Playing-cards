@@ -6,12 +6,12 @@
 var iniciadoMarcado = false;
 var adyacentes = [];
 var colorInicial = '';
-var idMarcado = [];
-//Diccionario de colores
-const colors = ['rojo', 'verde', 'azul', 'amarillo', 'naranja', 'morado'];
+var idMarcadas = [];
 //Id del proceso de intervalo
 var idInterval;
 
+//Contenido de las cartas
+var cards = ['raw1', 'raw2', 'raw3', 'raw4', 'raw5', 'raw6', 'raw7', 'raw8', 'raw9', 'raw10','raw11', 'raw12', 'raw13'];
 
 
 function setUserData(){
@@ -35,13 +35,30 @@ function createGrid(){
 //Pintar el panel de juego
 
 function paintGamePanel(){
-    
 
-    //Pintar el panel de juego
+    //Asignamos de forma aleatoria las parejas de cartas a las posiciones del tablero
+    let num = Math.round(size*size/2); //Numero de parejas
+    let cardsArray = [];
+    //Elegimos las cartas de forma aleatoria
+    for (let i = 0; i < num; i++) {
+        let rand = Math.floor(Math.random() * cards.length);
+        if (cardsArray.includes(cards[rand])) {
+            i--;
+            continue; //Saltamos la iteracion
+        }
+        cardsArray.push(cards[rand]);
+    }
+    //Duplicamos las cartas
+    cardsArray = cardsArray.concat(cardsArray);
+    //Barajamos las cartas
+    cardsArray = cardsArray.sort(function() {return Math.random() - 0.5});
+    console.log(cardsArray);
+
+    //Crear cartas volteadas
     let items = '';
 
     for (let i = 0; i < size*size; i++) {
-        items += '<div class="containerItem" draggable="false"><img id='+i+' src="/Images/backCard.png" height="145"  draggable="false"></></div>';
+        items += '<div class="containerItem" draggable="false"><img id='+i+' class="item" src="/Images/backCard.png" height="145" alt="itemImg"  draggable="false"><img id="hidden'+i+'" class="hiddenitem" src="Images/'+cardsArray[i]+'.png" height="145" alt="itemImg"  draggable="false"></img></img></div>';
         document.getElementById('juego').innerHTML = items;
     }
 }
@@ -50,96 +67,52 @@ function paintGamePanel(){
 //Funciones del juego
 
 /**
- * Calcula el array de adyacentes
- * @param {*} identificador
- */
-function calcularAdyacentes(id){
-    adyacentes = [];
-    //Adyacente superior
-    if (id - size >= 0){
-        adyacentes.push(id - size); 
-    }
-
-    //Adyacente inferior
-    if (id + size < size*size){
-        adyacentes.push(id + size);
-    }
-
-    //Adyacente izquierdo
-    if (id % size != 0){
-        adyacentes.push(id - 1);
-    }
-
-    //adyacente derecho
-    if ((id + 1) % size != 0){
-        adyacentes.push(id + 1);
-    }
-     
-    adyacentes.forEach(element => {
-        console.log('Adyacente: '+element);
-        
-    });
-    
-}
-
-/**
- * Iniciar el marcado de los items
+ * Iniciar el marcado de las cartas
  * @param {*} e 
  */
 function marcarItem(e){
 
-    idMarcado = [];
+    idMarcadas = [];
     
     let hijo = e.target;
     //Guardamos el color inicial
     colorInicial = hijo.classList[1];
+    hijo.style.zIndex = '1';
     selectItem(hijo);
     //Guardamos el id del item marcado
-    idMarcado.push(parseInt(hijo.id));
+    idMarcadas.push(parseInt(hijo.id));
 
-    //Comenzamos a calcular los adyacentes del primer item marcado
-    calcularAdyacentes(parseInt(hijo.id));
+    console.log('Marcado iniciado');
     
 }
 
 
 /**
- * Marca los items con su color correspondiente
+ * Marca la carta con un borde
  * @param {*} item 
  */
 function selectItem(item){
-    let containerItem = item.parentElement
-    //Añadimos la clase marcado al item padre
-    containerItem.classList.add(item.classList[1]);
-    if(!iniciadoMarcado){
-        iniciadoMarcado = true;
-    }
+    //Resaltamos el borde de la carta
+    item.style.border = '2px solid #FF0000';
+    //Bordes redondeados
+    item.style.borderRadius = '10px';
 
+    
 }
-
 
 /**
- * Continuar marcando items
- * @param {*} e 
+ * Voltea la carta para mostrar su cara
+ * @param {*} item 
  */
-function continuarMarcado(e){
+function voltearCarta(item){
+    //Voltear carta
+    let itemId = item.id;
     
-    if (iniciadoMarcado){
-        console.log('Marcado continuado', iniciadoMarcado);
-        let hijo = e.target;
-        //Es adyacente ???   Tiene el mismo color inicial ???
-        if (adyacentes.includes(parseInt(hijo.id)) && hijo.classList[1] == colorInicial){
-            selectItem(hijo);
-            
-            //Guardamos el id del item marcado
-            idMarcado.push(parseInt(hijo.id));
-            //Calculamos los adyacentes del nuevo item marcado
-            calcularAdyacentes(parseInt(hijo.id));
-        }
-       
-    }
-
+    let hiddenItem = document.getElementById('hidden'+itemId);
+    hiddenItem.style.opacity = '1';
+    hiddenItem.style.zIndex = '2';
 }
+
 
 /**
  * Finalizar marcando items
@@ -149,35 +122,14 @@ function finalizarMarcado(e){
     
     if (iniciadoMarcado){
         iniciadoMarcado = false;
+        log.console('Marcado finalizado');
         adyacentes = [];
         //Calculamos la puntuacion
         let puntuacionInput = document.getElementById('puntuacion');
         
-        if (idMarcado.length > 1){
-            puntuacionInput.value = parseInt(puntuacionInput.value) + idMarcado.length;
-        }
+        
 
 
-
-        //Trabajar con los marcados
-        idMarcado.forEach(element => {
-            //Capturamos el objeto
-            let item = document.getElementById(element);
-            //Quitamos el color del padre (Rectagulo de color)
-            item.parentElement.classList.remove(colorInicial);
-            //Cambiamos el color del item de forma aleatoria
-            let randColor = Math.floor(Math.random() * 6);
-            //Quitamos el color inicial comprobando que el classList no contenga elementos de color
-            //Esta cosa arreglara un bug que no me gusta
-            for (let color of colors){
-                if (item.classList.contains(color)){
-                    item.classList.remove(color);
-                }
-            }
-            //Añadimos el nuevo color
-            item.classList.add(colors[randColor]);
-
-        });
     }
     console.log('Marcado finalizado', iniciadoMarcado);
 
@@ -190,7 +142,6 @@ function gameEvents(){
 
     for (let item of items) {
         item.addEventListener('mousedown', marcarItem);
-        item.addEventListener('mouseover', continuarMarcado);
         //Prevenir que el item sea arrastrado
         item.addEventListener('dragstart', function(e){
             e.preventDefault();
