@@ -1,0 +1,147 @@
+body{
+    background-color: #f5f5f5;
+    font-family: "Poppins", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+header, footer{
+    text-align: center;
+    width: 400px;
+    /* Se incluye el auto para centrar el contenido automaticamente */
+    margin: 30px auto 0px auto; /* Se aplica un margen de 30px arriba y 0px abajo */
+    
+}
+
+main{
+    width: 400px;
+    /* Se incluye el auto para centrar el contenido automaticamente */
+    margin: 30px auto 0px auto; 
+}
+
+form{
+    font-size: 18px;
+    display: flex; /* Flex de forma predeterminada alinea los elementos en row */
+    flex-direction: column; /* Alinea los elementos en column */
+    row-gap: 20px; /* Espacio entre los elementos */
+    font-size: 18px;
+
+}
+
+label{
+    /* Block alinea los elementos en column */
+    display: block; /* Hace que el label ocupe todo el ancho del contenedor */
+    margin-bottom: 10px;
+}
+
+input{
+    font-family: "Poppins", sans-serif;
+    display: inline; /* Hace que el input ocupe solo el espacio que necesita */
+    width: 236px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 0px 5px 5px 0px; /* Hace que el borde sea redondeado solo en la esquina derecha */
+    font-size: 18px;
+    font-weight: 200;
+   
+
+}
+
+p{
+    font-size: 15px;
+    font-weight: 300;
+    color: rgb(71, 71, 66);
+    
+}
+
+input[type="submit"]{
+    
+    background-color: #d6450c;
+    color: white;
+    padding: 14px 20px; /* Espacio entre el texto y el borde del boton */
+    margin: 8px 0; /* Espacio entre el boton y el input */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 200;
+}
+
+select{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    width: 100%; /* Hace que el select ocupe todo el ancho del contenedor */
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-weight: 200; /* Hace que el texto sea mas delgado */
+    
+}
+/* Clases */
+
+.avatarItem{
+    background-color: white;
+    border: 1px solid #e74504;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+/* IDs */
+#nicka{
+    float: left;
+    width: 20px;
+    background-color: #ced4da;
+    border: 1px solid #ced4da; /* Hace que el borde sea del mismo color que el fondo */
+    border-radius: 5px 0px 0px 5px; /* Hace que el borde sea redondeado solo en la esquina izquierda */
+    font-weight: 400;
+    font-size: 18px;
+}
+
+#nick{
+    width: 336px;
+}
+
+#email{
+    width: 378px;
+    border-radius: 5px; /* Hace que el borde sea redondeado en todas las esquinas */
+}
+
+#error{
+    text-align: center;
+    color: red;
+    font-size: 18px;
+    font-weight: 300;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#avatarSelector{
+    float: left; /* Hace que el elemento se alinee a la izquierda */
+    padding-left: 60px;
+}
+
+#avatarContainer{
+    display:flex;
+    background-color: white;
+    border: 1px solid #e74504;
+    border-radius: 5px;
+    width: 125px;
+    height: 125px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+#avatargrid{
+    display: flex;
+    justify-content:center; /*justifica el contenido al centro */
+    align-items: center; /* Alinea los elementos en el centro */
+    flex-wrap: wrap; /* Flex-wrap hace que los elementos se alineen en column cuando no hay espacio */
+    gap: 5px;
+    margin-top: 10px;
+    padding-right: 50px;
+}
+

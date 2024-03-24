@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterdots game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/reset.css">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    
+</head>
+<body>
+    <!-- Cabecera-->
+    <header>
+        
+        <img src="Images/logo.png" alt="Masterdots game" height="200">
+        
+    </header>
+    <!-- Fin cabecera-->
+    <!-- Formulario Usuario-->
+    <main>
+        <div id="error"></div>
+        <form action="game.html" id="formEntrada">
+            <div class="itemform">
+                <label for="nick">Introduce un nickname:*</label>
+                <input type="text" id="nicka" name="nick" value="👾" readonly>
+                <input type="text" id="nick" name="nick" >
+            </div>
+            <div class="itemform">
+                <label for="difficult">Dificultad:</label>
+                <select name="difficult" id="difficult">
+                    <option value="0">Selecciona una dificultad</option>
+                    <option value="1">Fácil</option>
+                    <option value="2">Medio</option>
+                    <option value="3">Difícil</option>
+                </select>
+            </div>
+            <div class="itemform">
+                <label for="size">Número de tarjetas:*</label>
+                <select name="size" id="size">
+                    <option value="0">Selecciona un tamaño</option>
+                    <option value="3">9     (3x3)</option>
+                    <option value="4">16    (4x4)</option>
+                    <option value="5">25    (5x5)</option>
+                </select>
+            </div>
+            <!-- Avatar Selector-->
+            <div class="itemform">
+                <label for="avatar">Selecciona un avatar:</label>
+                <div id="avatarSelector">
+                    <div id="avatarContainer">
+                        <img src="Images/av1.png" alt="Avatar Big" id="avatarBig" class="avatarImg" width="110">
+                    </div>
+                </div>    
+                
+                <div id="avatargrid">
+                    <div class="avatarItem">
+                        <img src="Images/av1.png" alt="Avatar 1" id="avatar1" class="avatarImgItem" width="35" draggable="true">
+                    </div>
+                    <div class="avatarItem">
+                        <img src="Images/av2.png" alt="Avatar 2" id="avatar2" class="avatarImgItem" width="35" draggable="true">
+                    </div>
+                    <div class="avatarItem">
+                        <img src="Images/av3.png" alt="Avatar 3" id="avatar3" class="avatarImgItem" width="35" draggable="true">
+                    </div>
+                    <div class="avatarItem">
+                        <img src="Images/av4.png" alt="Avatar 4" id="avatar4" class="avatarImgItem" width="35" draggable="true">
+                    </div>
+                    <div class="avatarItem">
+                        <img src="Images/av5.png" alt="Avatar 5" id="avatar5" class="avatarImgItem" width="35" draggable="true">
+                    </div>
+                    <div class="avatarItem">
+                        <img src="Images/av6.png" alt="Avatar 6" id="avatar6" class="avatarImgItem" width="35" draggable="true">
+                    </div>
+                </div>
+            </div>
+
+            
+            <div>
+                <p>*Campos obligatorios</p>
+            </div>
+            <div class="itemform">
+                                                <!-- onclick = InlineEvent test()=HANDLER-->
+                <input type="submit" value="Jugar" id="btnJugar">
+            </div>
+
+        </form>
+
+    </main>
+    <!-- Fin formulario Usuario-->
+
+    <!-- Pie de página-->
+    <footer>
+        
+        <p>Masterdots game</p>
+        
+    </footer>
+    <!-- Fin pie de página-->
+    <!-- Scripts (Se incluyen al final para que no bloquee al HTML)-->
+    <script src="JS/user_data.js"></script>
+    <script src="JS/app.js"></script>
+
+    
+    
+</body>
+</html>
