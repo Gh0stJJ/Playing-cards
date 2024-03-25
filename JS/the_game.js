@@ -45,6 +45,14 @@ function createGrid(){
     //Alteramos la hoja de estilos
     document.getElementById('juego').style.gridTemplateColumns = 'repeat('+size+', 1fr)';
     document.getElementById('juego').style.gridTemplateRows = 'repeat('+size+', 1fr)';
+
+    document.getElementById('juegoAcabado').style.gridTemplateColumns = 'repeat('+size+', 1fr)';
+    document.getElementById('juegoAcabado').style.gridTemplateRows = 'repeat('+size+', 1fr)';
+
+    document.getElementById('juegoGanado').style.gridTemplateColumns = 'repeat('+size+', 1fr)';
+    document.getElementById('juegoGanado').style.gridTemplateRows = 'repeat('+size+', 1fr)';
+
+
     tryes= document.getElementById('tryes');
     tryes.value = turnos[difficulty];
     console.log('Grid creado');
@@ -75,11 +83,13 @@ function paintGamePanel(){
 
     //Crear cartas volteadas
     let items = '';
+    let voidItems = '';
 
     for (let i = 0; i < size*size; i++) {
         items += '<div class="containerItem" draggable="false"><img id='+i+' class="item" src="/Images/backCard.png" height="145" alt="itemImg"  draggable="false"><img id="hidden'+i+'" class="hiddenitem" src="Images/'+cardsArray[i]+'.png" height="145" alt="itemImg"  draggable="false"></img></img></div>';
         document.getElementById('juego').innerHTML = items;
     }
+
 }
 
 
@@ -90,9 +100,26 @@ function paintGamePanel(){
  * @param {*} e 
  */
 function marcarItem(e){
-    
-    console.log('Tiempo de penalizacion: '+tiempo);
+    let puntuacionInput = document.getElementById('puntuacion');
+    //Comprobamos si se ha terminado el juego
+    if (tryes.value == 0){
+        console.log('Has terminado el juego');
+        document.getElementById('juegoAcabado').style.zIndex = '2';
+        document.getElementById('juegoAcabado').style.backgroundColor = 'black';
+        return;
+        
+    }if (puntuacionInput.value == Math.floor(size*size/2)){
+        console.log('Has ganado el juego');
+        document.getElementById('juegoGanado').style.zIndex = '2';
+        //Eliminamos el display none del CSS
+        document.getElementById('winnerImg').style.display = 'block';
+        
+        
+        return;
+    }
 
+    console.log('Tiempo de penalizacion: '+tiempo);
+    
     if (iniciadoMarcado){
         let hijo = e.target;
         //Guardamos el color inicial
@@ -126,10 +153,11 @@ function marcarItem(e){
         if ((cartaA == cartaB) && (idA != idB)){
             console.log('Has seleccionado la misma carta');
             //Calculamos la puntuacion
-            let puntuacionInput = document.getElementById('puntuacion');
+            
             puntuacionInput.value = parseInt(puntuacionInput.value) + 1;
             //Vaciamos el array de cartas marcadas
             idMarcadas = [];
+            iniciadoMarcado = true;
             
         }else{
             //Delay de 1 segundo
@@ -142,13 +170,12 @@ function marcarItem(e){
 
                 //Vaciamos el array de cartas marcadas
                 idMarcadas = [];
+                iniciadoMarcado = true;
                 
             }, tiempo);
 
         }
         
-        iniciadoMarcado = true;
-
 
     }
 }
@@ -193,8 +220,6 @@ function ocultarCarta(item){
     hiddenItem.style.opacity = '0';
     hiddenItem.style.zIndex = '1';
 }
-
-
 
 
 function gameEvents(){

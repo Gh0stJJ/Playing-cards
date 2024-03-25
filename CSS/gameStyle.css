@@ -99,14 +99,12 @@ footer{
     justify-items: center;
     align-items: center;
     width: 600px;
-    min-height: 400px;
+    height: auto;
     background-color: #fff;
     border: 1px solid #ced4da;
     border-radius: 5px 5px 0px 0px;
     padding: 20px, 20px, 20px, 20px;
     
-    
-
 }
 .juegoAcabadoColor{
     background-color: #263238;
@@ -128,31 +126,32 @@ footer{
     z-index: 2;
 }
 
-
-
-
-#juegoAcabado{
+#juegoAcabado, #juegoGanado{
     z-index: 1;
-    position: absolute;
+    position: absolute; /* Cambiado de absolute a relative */
     display: flex;
+    flex-direction: column;
+    gap: 20px;
     justify-content: center;
     align-items: center;
     border: 1px solid #ced4da;
     border-radius: 5px 5px 0px 0px;
-    width: 500px;
-    height: 400px; 
+    width: 600px;
+    height: 800px;
 }
-#juegoAcabado button{
+#juegoAcabado button, #juegoGanado button{
+    
     background-color: #fff;
     border: 1px solid #ced4da;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 0;
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
     font-weight: 400;
     border-radius: 5px;
     width: 200px;
+    z-index: 1; /* Asegura que el botón esté sobre la imagen */
 }
+
 #tituloJuego{
     margin-top: 400px;
     width: 500px;
@@ -170,4 +169,24 @@ footer{
 }
 #contenedorUsuario{
     width: 290px;
+}
+
+#juegoGanado img {
+
+    /* Esconde la imagen por defecto */
+    display: none;
+    position: absolute;
+    width: 100%; 
+    max-width: 800px; 
+    align-self: center; 
+    order: -1; /* Asegura que la imagen aparezca al inicio */
+    z-index: 0; /* Pone la imagen detrás de los otros elementos */
+}
+  
+#juegoGanado h1 {
+    color: rgb(44, 43, 43);
+    font-size: 24px;
+    font-weight: 900;
+    margin: 0; 
+    z-index: 1; 
 }
