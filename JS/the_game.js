@@ -85,7 +85,7 @@ function paintGamePanel(){
     let items = '';
 
     for (let i = 0; i < size*size; i++) {
-        items += '<div class="containerItem" draggable="false"><img id='+i+' class="item" src="/Images/backCard.png" height="145" alt="itemImg"  draggable="false"><img id="hidden'+i+'" class="hiddenitem" src="Images/'+cardsArray[i]+'.png" height="145" alt="itemImg"  draggable="false"></img></img></div>';
+        items += '<div class="containerItem" draggable="false"><img id='+i+' class="item" src="Images/backCard.png" height="145" alt="itemImg"  draggable="false"><img id="hidden'+i+'" class="hiddenitem" src="Images/'+cardsArray[i]+'.png" height="145" alt="itemImg"  draggable="false"></img></img></div>';
         document.getElementById('juego').innerHTML = items;
     }
 
