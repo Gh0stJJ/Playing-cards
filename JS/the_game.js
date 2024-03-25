@@ -7,14 +7,21 @@ var iniciadoMarcado = true;
 var adyacentes = [];
 var colorInicial = '';
 var idMarcadas = [];
-//Id del proceso de intervalo
-var idInterval;
+//Diccionario de penalizacione por dificultad
+const penalizaciones = {
+    '1': 0,
+    '2': 0.75,
+    '3': 0.40,
+};
 
-//tiempo de delay
-var tiempo = 1000;
+
+
+
 
 //Contenido de las cartas
 var cards = ['raw1', 'raw2', 'raw3', 'raw4', 'raw5', 'raw6', 'raw7', 'raw8', 'raw9', 'raw10','raw11', 'raw12', 'raw13'];
+
+
 
 
 function setUserData(){
@@ -74,6 +81,8 @@ function paintGamePanel(){
  * @param {*} e 
  */
 function marcarItem(e){
+    
+    console.log('Tiempo de penalizacion: '+tiempo);
 
     if (iniciadoMarcado){
         let hijo = e.target;
@@ -97,6 +106,8 @@ function marcarItem(e){
 
         //Delay de 1 segundo
         setTimeout(function(){
+            //tiempo de delay
+            
             ocultarCarta(idMarcadas[0]);
             ocultarCarta(idMarcadas[1]);
             idMarcadas = [];
@@ -154,7 +165,7 @@ function ocultarCarta(item){
 function finalizarMarcado(e){
     
     
-    log.console('Marcado finalizado');
+    
     adyacentes = [];
     //Calculamos la puntuacion
     let puntuacionInput = document.getElementById('puntuacion');
@@ -182,30 +193,6 @@ function gameEvents(){
     //Evento para dejar de marcar (Se lo vincula a todo el documento)
     document.addEventListener('mouseup', finalizarMarcado);
 
-    //Contador de tiempo (Cuenta atras)
-    /*idInterval = setInterval(function(){
-        let tiempoInput = document.getElementById('tmpo');
-        tiempoInput.value = parseInt(tiempoInput.value) - 1;
-        if (parseInt(tiempoInput.value) == 0){
-            clearInterval(idInterval);
-            //Paramos todos los eventos latentes
-            for (let item of items) {
-                item.removeEventListener('mousedown', marcarItem);
-                item.removeEventListener('mouseover', continuarMarcado);
-            }
-            document.removeEventListener('mouseup', finalizarMarcado);
-            
-            document.getElementById('juegoAcabado').classList.add('juegoAcabadoColor');
-            //Cambiar indices de los paneles
-            document.getElementById('juegoAcabado').style.zIndex = '2';
-            document.getElementById('juego').style.zIndex = '1';
-            //Evento de boton de reinicio
-            document.getElementById('nuevaPartida').addEventListener('click', function(){
-                location.reload();
-            });
-
-        }
-    }, 1000); */
 
 }
 
@@ -215,6 +202,8 @@ function gameEvents(){
 
 // Get the user data
 getuserData();
+
+let tiempo = 1000*penalizaciones[difficulty];
 //Guardamos el historial de usuario en el localStorage
 userHistory();
 //Comprobamos si el usuario ya ha introducido su nombre
