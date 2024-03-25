@@ -3,12 +3,15 @@
 */
 
 //VARIABLES GLOBALES
-var iniciadoMarcado = false;
+var iniciadoMarcado = true;
 var adyacentes = [];
 var colorInicial = '';
 var idMarcadas = [];
 //Id del proceso de intervalo
 var idInterval;
+
+//tiempo de delay
+var tiempo = 1000;
 
 //Contenido de las cartas
 var cards = ['raw1', 'raw2', 'raw3', 'raw4', 'raw5', 'raw6', 'raw7', 'raw8', 'raw9', 'raw10','raw11', 'raw12', 'raw13'];
@@ -72,18 +75,36 @@ function paintGamePanel(){
  */
 function marcarItem(e){
 
-    idMarcadas = [];
-    
-    let hijo = e.target;
-    //Guardamos el color inicial
-    colorInicial = hijo.classList[1];
-    hijo.style.zIndex = '1';
-    selectItem(hijo);
-    //Guardamos el id del item marcado
-    idMarcadas.push(parseInt(hijo.id));
+    if (iniciadoMarcado){
+        let hijo = e.target;
+        //Guardamos el color inicial
+        colorInicial = hijo.classList[1];
+        selectItem(hijo);
+        
+        //Guardamos el id de la carta
+        idMarcadas.push(hijo);
+    }
 
-    console.log('Marcado iniciado');
-    
+    if (idMarcadas.length == 2){
+        
+        console.log('Ya se han marcado dos cartas');
+        //Desactivamos el evento de marcar
+        iniciadoMarcado = false;
+        for (let item of idMarcadas) {
+            item.style.border = 'none';
+            voltearCarta(item);
+        }
+
+        //Delay de 1 segundo
+        setTimeout(function(){
+            ocultarCarta(idMarcadas[0]);
+            ocultarCarta(idMarcadas[1]);
+            idMarcadas = [];
+            iniciadoMarcado = true;
+        }, tiempo);
+        
+
+    }
 }
 
 
@@ -113,6 +134,18 @@ function voltearCarta(item){
     hiddenItem.style.zIndex = '2';
 }
 
+/**
+ * Voltea la carta ocultar su cara
+ * @param {*} item 
+ */
+function ocultarCarta(item){
+    //Ocultar carta
+    let itemId = item.id;
+    
+    let hiddenItem = document.getElementById('hidden'+itemId);
+    hiddenItem.style.opacity = '0';
+    hiddenItem.style.zIndex = '1';
+}
 
 /**
  * Finalizar marcando items
@@ -120,17 +153,16 @@ function voltearCarta(item){
  */
 function finalizarMarcado(e){
     
-    if (iniciadoMarcado){
-        iniciadoMarcado = false;
-        log.console('Marcado finalizado');
-        adyacentes = [];
-        //Calculamos la puntuacion
-        let puntuacionInput = document.getElementById('puntuacion');
+    
+    log.console('Marcado finalizado');
+    adyacentes = [];
+    //Calculamos la puntuacion
+    let puntuacionInput = document.getElementById('puntuacion');
         
         
 
 
-    }
+    
     console.log('Marcado finalizado', iniciadoMarcado);
 
 }

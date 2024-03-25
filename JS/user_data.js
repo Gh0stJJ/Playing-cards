@@ -3,19 +3,20 @@
 */
 
 var nick;
-var email;
+var difficulty;
 var size;
 var avatarImg;
 
 /**
  * 
  * @param {HTMLElement} nick nombre de usuario
- * @param {HTMLElement} email correo electrónico
+ * @param {HTMLElement} difficulty dificultad del juego
  * @param {HTMLElement} size tamaño del tablero
  * @param {HTMLElement} avatarData imagen de avatar
  */
-function setuserData(nick, size, avatarData) {
+function setuserData(nick,difficulty, size, avatarData) {
     sessionStorage.setItem('nick', nick.value);
+    sessionStorage.setItem('difficulty', difficulty.value);
     sessionStorage.setItem('size', size.value);
     sessionStorage.setItem('avatarImg', avatarData.src);
 
@@ -23,6 +24,7 @@ function setuserData(nick, size, avatarData) {
 
 function getuserData() {
     nick = sessionStorage.getItem('nick');
+    difficulty = sessionStorage.getItem('difficulty');
     size = parseInt(sessionStorage.getItem('size'));
     avatarImg = sessionStorage.getItem('avatarImg');
 
