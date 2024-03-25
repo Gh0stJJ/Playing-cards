@@ -151,6 +151,7 @@ function marcarItem(e){
                 ocultarCarta(idMarcadas[1]);
                 //Restamos un intento
                 tryes.value = parseInt(tryes.value) - 1;
+                checkTryes(tryes);
 
                 //Vaciamos el array de cartas marcadas
                 idMarcadas = [];
@@ -206,30 +207,62 @@ function ocultarCarta(item){
 }
 
 /**
- * Comprueba si el juego ha terminado
- * @param {*} item 
- 
+ * Comprueba si quedan intentos restantes
+ * @param {*} tryes Introducimos el numero de intentos restantes
  */
-
-function checkGameEnd(){
-    let puntuacionInput = document.getElementById('puntuacion');
-    let tryes = document.getElementById('tryes');
+function checkTryes(tryes){
     //Comprobamos si se ha terminado el juego
     if (tryes.value == 0){
         console.log('Has terminado el juego');
         document.getElementById('juegoAcabado').style.zIndex = '2';
         //Eliminamos el display none del CSS
         document.getElementById('gameOverImg').style.display = 'block';
-        return;
-        
-    }if (puntuacionInput.value == Math.floor(size*size/2)){
-        console.log('Has ganado el juego');
-        document.getElementById('juegoGanado').style.zIndex = '2';
-        //Eliminamos el display none del CSS
-        document.getElementById('winnerImg').style.display = 'block';
-        
-        return;
+        //Boton de reinicio
+        let reiniciar = document.getElementById('nuevaPartidaA');
+        reiniciar.addEventListener('click', function(){
+            location.reload();
+        });
     }
+
+}
+/**
+ * Comprueba el Score
+ * @param {*} score Score del jugador
+ */
+function checkScore(score){
+    //Comprobamos si se ha terminado el juego
+    if (score.value == Math.floor(size*size/2)){
+
+        console.log('Has ganado el juego');
+        //Delay de 1 segundo para que no se muestre el mensaje de ganador demasiado rapido
+        setTimeout(function(){
+            //tiempo de delay
+            document.getElementById('juegoGanado').style.zIndex = '2';
+            //Eliminamos el display none del CSS
+            document.getElementById('winnerImg').style.display = 'block';
+            //Boton de reinicio
+            let reiniciar = document.getElementById('nuevaPartidaB');
+            reiniciar.addEventListener('click', function(){
+                location.reload();
+            });
+        }, 1000);
+    }
+}
+
+
+/**
+ * Comprueba si el juego ha terminado
+ * @param {*} item 
+ 
+ */
+function checkGameEnd(){
+    let puntuacionInput = document.getElementById('puntuacion');
+    let tryes = document.getElementById('tryes');
+    //Comprobamos los intentos restantes
+    checkTryes(tryes);
+    //Comprobamos la puntuacion
+    checkScore(puntuacionInput);
+    
 }
 
 
