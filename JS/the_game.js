@@ -83,7 +83,6 @@ function paintGamePanel(){
 
     //Crear cartas volteadas
     let items = '';
-    let voidItems = '';
 
     for (let i = 0; i < size*size; i++) {
         items += '<div class="containerItem" draggable="false"><img id='+i+' class="item" src="/Images/backCard.png" height="145" alt="itemImg"  draggable="false"><img id="hidden'+i+'" class="hiddenitem" src="Images/'+cardsArray[i]+'.png" height="145" alt="itemImg"  draggable="false"></img></img></div>';
@@ -101,22 +100,7 @@ function paintGamePanel(){
  */
 function marcarItem(e){
     let puntuacionInput = document.getElementById('puntuacion');
-    //Comprobamos si se ha terminado el juego
-    if (tryes.value == 0){
-        console.log('Has terminado el juego');
-        document.getElementById('juegoAcabado').style.zIndex = '2';
-        document.getElementById('juegoAcabado').style.backgroundColor = 'black';
-        return;
-        
-    }if (puntuacionInput.value == Math.floor(size*size/2)){
-        console.log('Has ganado el juego');
-        document.getElementById('juegoGanado').style.zIndex = '2';
-        //Eliminamos el display none del CSS
-        document.getElementById('winnerImg').style.display = 'block';
-        
-        
-        return;
-    }
+    
 
     console.log('Tiempo de penalizacion: '+tiempo);
     
@@ -221,6 +205,33 @@ function ocultarCarta(item){
     hiddenItem.style.zIndex = '1';
 }
 
+/**
+ * Comprueba si el juego ha terminado
+ * @param {*} item 
+ 
+ */
+
+function checkGameEnd(){
+    let puntuacionInput = document.getElementById('puntuacion');
+    let tryes = document.getElementById('tryes');
+    //Comprobamos si se ha terminado el juego
+    if (tryes.value == 0){
+        console.log('Has terminado el juego');
+        document.getElementById('juegoAcabado').style.zIndex = '2';
+        //Eliminamos el display none del CSS
+        document.getElementById('gameOverImg').style.display = 'block';
+        return;
+        
+    }if (puntuacionInput.value == Math.floor(size*size/2)){
+        console.log('Has ganado el juego');
+        document.getElementById('juegoGanado').style.zIndex = '2';
+        //Eliminamos el display none del CSS
+        document.getElementById('winnerImg').style.display = 'block';
+        
+        return;
+    }
+}
+
 
 function gameEvents(){
     //Eventos del juego
@@ -233,9 +244,10 @@ function gameEvents(){
             e.preventDefault();
         });
     }
+
+    //Mouse up event al documento
+    document.addEventListener('mouseup', checkGameEnd);
     
-
-
 }
 
 /*

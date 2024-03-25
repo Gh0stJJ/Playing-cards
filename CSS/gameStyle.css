@@ -124,6 +124,8 @@ footer{
 
 .item{
     z-index: 2;
+    padding: 7px 7px 7px 7px;
+
 }
 
 #juegoAcabado, #juegoGanado{
@@ -171,7 +173,7 @@ footer{
     width: 290px;
 }
 
-#juegoGanado img {
+#juegoAcabado img, #juegoGanado img {
 
     /* Esconde la imagen por defecto */
     display: none;
@@ -185,6 +187,13 @@ footer{
   
 #juegoGanado h1 {
     color: rgb(44, 43, 43);
+    font-size: 24px;
+    font-weight: 900;
+    margin: 0; 
+    z-index: 1; 
+}
+#juegoAcabado h1{
+    color: rgb(255, 255, 255);
     font-size: 24px;
     font-weight: 900;
     margin: 0; 
