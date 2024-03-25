@@ -7,13 +7,20 @@ var iniciadoMarcado = true;
 var adyacentes = [];
 var colorInicial = '';
 var idMarcadas = [];
-//Diccionario de penalizacione por dificultad
+var tryes;
+//Diccionario de penalizacione de tiempo x dificultad
 const penalizaciones = {
-    '1': 0,
+    '1': 1,
     '2': 0.75,
     '3': 0.40,
 };
 
+//Diccionario de turnos por dificultad
+const turnos = {
+    '1': 20,
+    '2': 15,
+    '3': 10,
+};
 
 
 
@@ -38,6 +45,8 @@ function createGrid(){
     //Alteramos la hoja de estilos
     document.getElementById('juego').style.gridTemplateColumns = 'repeat('+size+', 1fr)';
     document.getElementById('juego').style.gridTemplateRows = 'repeat('+size+', 1fr)';
+    tryes= document.getElementById('tryes');
+    tryes.value = turnos[difficulty];
     console.log('Grid creado');
     console.log('Tamaño del tablero: '+size);
 }
@@ -90,30 +99,56 @@ function marcarItem(e){
         colorInicial = hijo.classList[1];
         selectItem(hijo);
         
-        //Guardamos el id de la carta
-        idMarcadas.push(hijo);
+        //Guardamos el id de la carta solo si no se ha marcado ya
+        if (!idMarcadas.includes(hijo))
+            idMarcadas.push(hijo);
     }
 
     if (idMarcadas.length == 2){
+
+        let idVolteadas = [];
         
         console.log('Ya se han marcado dos cartas');
         //Desactivamos el evento de marcar
         iniciadoMarcado = false;
         for (let item of idMarcadas) {
             item.style.border = 'none';
-            voltearCarta(item);
+            idVolteadas.push(voltearCarta(item));
         }
+        //Comprobamos si las cartas son iguales
+        let cartaA = idVolteadas[0].src;
+        let cartaB = idVolteadas[1].src;
+        let idA = idVolteadas[0].id;
+        let idB = idVolteadas[1].id;
+        console.log('Carta A: '+cartaA);
+        console.log('Carta B: '+cartaB);
 
-        //Delay de 1 segundo
-        setTimeout(function(){
-            //tiempo de delay
-            
-            ocultarCarta(idMarcadas[0]);
-            ocultarCarta(idMarcadas[1]);
+        if ((cartaA == cartaB) && (idA != idB)){
+            console.log('Has seleccionado la misma carta');
+            //Calculamos la puntuacion
+            let puntuacionInput = document.getElementById('puntuacion');
+            puntuacionInput.value = parseInt(puntuacionInput.value) + 1;
+            //Vaciamos el array de cartas marcadas
             idMarcadas = [];
-            iniciadoMarcado = true;
-        }, tiempo);
+            
+        }else{
+            //Delay de 1 segundo
+            setTimeout(function(){
+                //tiempo de delay
+                ocultarCarta(idMarcadas[0]);
+                ocultarCarta(idMarcadas[1]);
+                //Restamos un intento
+                tryes.value = parseInt(tryes.value) - 1;
+
+                //Vaciamos el array de cartas marcadas
+                idMarcadas = [];
+                
+            }, tiempo);
+
+        }
         
+        iniciadoMarcado = true;
+
 
     }
 }
@@ -143,6 +178,7 @@ function voltearCarta(item){
     let hiddenItem = document.getElementById('hidden'+itemId);
     hiddenItem.style.opacity = '1';
     hiddenItem.style.zIndex = '2';
+    return hiddenItem;
 }
 
 /**
@@ -158,25 +194,7 @@ function ocultarCarta(item){
     hiddenItem.style.zIndex = '1';
 }
 
-/**
- * Finalizar marcando items
- * @param {*} e 
- */
-function finalizarMarcado(e){
-    
-    
-    
-    adyacentes = [];
-    //Calculamos la puntuacion
-    let puntuacionInput = document.getElementById('puntuacion');
-        
-        
 
-
-    
-    console.log('Marcado finalizado', iniciadoMarcado);
-
-}
 
 
 function gameEvents(){
@@ -190,8 +208,7 @@ function gameEvents(){
             e.preventDefault();
         });
     }
-    //Evento para dejar de marcar (Se lo vincula a todo el documento)
-    document.addEventListener('mouseup', finalizarMarcado);
+    
 
 
 }
